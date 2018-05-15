@@ -99,6 +99,11 @@ GEM
     execjs (2.7.0)
     factory_bot (4.8.2)
       activesupport (>= 3.0.0)
+    factory_bot_rails (4.8.2)
+      factory_bot (~> 4.8.2)
+      railties (>= 3.0.0)
+    faker (1.8.7)
+      i18n (>= 0.7)
     ffi (1.9.23)
     formatador (0.2.5)
     gherkin (5.0.0)
@@ -272,7 +277,8 @@ DEPENDENCIES
   cucumber-rails
   database_cleaner
   devise
-  factory_bot
+  factory_bot_rails
+  faker
   guard-rspec
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)

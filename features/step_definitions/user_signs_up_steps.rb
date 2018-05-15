@@ -1,32 +1,33 @@
-Given('my email has not been used to sign up before') do
-  expect(User.find_by(email: 'bark@dog.com')).to be_nil
-end
-
 Given('I am on the home page') do
   visit root_path
   expect(page).to have_current_path(root_path)
 end
 
+Given("the email {string} is already in use") do |email|
+  FactoryBot.create(:user, email: email)
+end
+
+
 When('I follow {string}') do |link|
   click_link link
-end
-
-When('I fill in {string} with {string}') do |label, value|
-  fill_in label, with: value
-end
-
-When('I press {string}') do |string|
-  click_button 'Sign up'
 end
 
 Then('I should see {string}') do |string|
   expect(page).to have_content(string)
 end
 
-Then('I should be on the login path') do
-  expect(page).to have_current_path(new_user_session_path)
+When('I fill in {string} with {string}') do |label, value|
+  fill_in label, with: value
 end
 
-Then('I should be listed as a user') do
-  expect(User.find_by(email: 'bark@dog.com')).to_not be_nil
+When('I press {string}') do |_string|
+  click_button 'Sign up'
+end
+
+Then('I should see content that includes {string}') do |content|
+  expect(page).to have_content(content)
+end
+
+Then('I should be on {string}') do |expected_page|
+  expect(page).to have_current_path(eval(expected_page))
 end
