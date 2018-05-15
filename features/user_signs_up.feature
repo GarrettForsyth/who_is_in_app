@@ -25,7 +25,7 @@ Feature: User signs up
     And I fill in "Email" with "<email>"
     And I fill in "Password" with "<password>"
     And I fill in "Password confirmation" with "<password confirmation>"
-    And I press "Create"
+    And I press "Sign up"
     Then I should see content that includes "<message>"
 
     Scenarios: the user gives valid credentials

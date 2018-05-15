@@ -20,8 +20,8 @@ When('I fill in {string} with {string}') do |label, value|
   fill_in label, with: value
 end
 
-When('I press {string}') do |_string|
-  click_button 'Sign up'
+When('I press {string}') do |btn_text|
+  click_button btn_text
 end
 
 Then('I should see content that includes {string}') do |content|
