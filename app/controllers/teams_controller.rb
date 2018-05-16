@@ -11,6 +11,7 @@ class TeamsController < ApplicationController
       current_user.teams << @team
       @team.members << current_user
 
+      flash[:notice] = 'Team successfully created!'
       redirect_to @team
     else
       render :new

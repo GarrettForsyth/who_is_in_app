@@ -22,11 +22,11 @@ When("I fill_in {string} with {string}") do |label, value|
 end
 
 When("I select {string}") do |activity|
-  choose activity
+  choose activity unless activity.blank?
 end
 
-When("I pick the minimum players to play to be {int}") do |int|
-  fill_in 'team[min_members]', with: int.to_s
+When("I pick the minimum members to play to be {string}") do |num|
+  fill_in 'team[min_members]', with: num.to_i
 end
 
 Then("I should be redirected to my teams page") do
