@@ -3,6 +3,7 @@ FactoryBot.define do
     sequence(:name) { |n| "cool team name #{n}" }
     association :activity, factory: :activity
     min_members 5
+    association :captain, factory: :user 
   end
   factory :activity do
     name "Baseball"

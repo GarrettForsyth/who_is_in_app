@@ -1,3 +1,6 @@
 <h1><%=@team.name %></h1>
 <h3><%= @team.activity.name %></h3>
+<%= link_to 'Upload Schedule', edit_team_path(@team) %>
+
+<%= image_tag(@team.schedule_url) if @team.schedule? %>
 

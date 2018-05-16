@@ -46,6 +46,11 @@ RSpec.describe Team, type: :model do
         team = FactoryBot.build(:team, min_members: 0)
         expect(team).to_not be_valid
       end
+
+      it 'is invalid without a captain' do
+        team = FactoryBot.build(:team, captain: nil)
+        expect(team).to_not be_valid
+      end
     end
   end
 end

@@ -22,9 +22,23 @@ class TeamsController < ApplicationController
     @team = Team.find(params[:id])
   end
 
+  def edit
+    @team = Team.find(params[:id])
+  end
+
+  def update
+    @team = Team.find(params[:id])
+    if @team.update_attributes(team_params)
+      flash[:notice] = 'Team information has been updated!'
+      redirect_to @team
+    else
+      render 'edit'
+    end
+  end
+
   private
 
   def team_params
-    params.require(:team).permit(:name, :activity_id, :min_members)
+    params.require(:team).permit(:name, :activity_id, :min_members, :user_id, :schedule)
   end
 end
