@@ -89,6 +89,9 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
+  # Add default options for Action Mailer
+  config.action_mailer.default_url_options = { host: 'https://who-is-in.herokuapp.com' }  
+
   ActionMailer::Base.smtp_settings = {
   :user_name => ENV['SENDGRID_USERNAME'],
   :password =>  ENV['SENDGRID_PASSWORD'],
