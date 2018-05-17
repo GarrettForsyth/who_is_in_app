@@ -2,5 +2,11 @@
 <h3><%= @team.activity.name %></h3>
 <%= link_to 'Upload Schedule', edit_team_path(@team) %>
 
-<%= image_tag(@team.schedule_url) if @team.schedule? %>
+<% if @team.schedule? %>
+  <% if @team.schedule.file.extension.downcase == 'pdf' %>
+    <%= content_tag :iframe, '', src: @team.schedule_url %>
+  <% else %>
+    <%= image_tag(@team.schedule_url) if @team.schedule? %>
+  <% end %>
+<% end %>
 

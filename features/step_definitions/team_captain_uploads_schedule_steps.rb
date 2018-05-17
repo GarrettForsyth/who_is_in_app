@@ -16,6 +16,11 @@ When("I select {string} from my documents") do |file_name|
               "spec/fixtures/#{file_name}")
 end
 
-Then("I should see the image {string}") do |image|
-  expect(page).to have_xpath("//img[@src=\"/uploads/team/schedule/#{@team.id}/#{image}\"]")
+Then("I should see the image {string} if {string}") do |image, type|
+  if type == 'image'
+    expect(page).to have_xpath("//img[@src=\"/uploads/team/schedule/#{@team.id}/#{image}\"]")
+  end
+  if type == 'pdf'
+    expect(page).to have_xpath("//iframe[@src=\"/uploads/team/schedule/#{@team.id}/#{image}\"]")
+  end
 end

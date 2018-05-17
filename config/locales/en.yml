@@ -30,4 +30,6 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  errors:
+    messages:
+      extension_whitelist_error: "cannot be a %{extension} file. Allowed types are: %{allowed_types}"
