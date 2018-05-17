@@ -7,6 +7,10 @@ Given("I am on my team's show page") do
   visit team_path(@team)
 end
 
+Given("there have been no emails sent by the server") do
+  reset_emails
+end
+
 When("I select {string} from my documents") do |file_name|
   attach_file("Schedule", Rails.root +
               "spec/fixtures/#{file_name}")
