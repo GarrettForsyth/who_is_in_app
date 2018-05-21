@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   has_and_belongs_to_many :teams
   has_many :captained_teams, class_name: 'Team', dependent: :destroy
+  has_many :messages, foreign_key: 'author_id', dependent: :destroy
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,

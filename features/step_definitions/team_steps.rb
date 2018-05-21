@@ -11,3 +11,9 @@ Given("there is a team created by {string}") do |owner|
     @team.add_member(@user)
   end
 end
+
+Given("I am a member of a team") do
+    @team = FactoryBot.create(:team)
+    @team.add_member(@user)
+end
+

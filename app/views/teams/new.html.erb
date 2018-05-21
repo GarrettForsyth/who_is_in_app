@@ -1,6 +1,6 @@
 <%= form_for @team do |f| %>
-  <%= f.hidden_field :user_id, value: current_user.id %>
   <%= render 'layouts/error_messages', object: f.object %>
+  <%= f.hidden_field :user_id, value: current_user.id %>
   <div class="field">
     <%= f.label :name %>
     <%= f.text_field :name, autofocus: true %>

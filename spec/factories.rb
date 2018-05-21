@@ -1,4 +1,8 @@
 FactoryBot.define do
+  factory :message do
+    content "MyText"
+    author_id nil
+  end
   factory :team do
     sequence(:name) { |n| "cool team name #{n}" }
     activity_id 1
