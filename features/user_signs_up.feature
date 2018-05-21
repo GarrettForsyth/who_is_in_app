@@ -5,16 +5,16 @@ Feature: User signs up
   I want to sign up
 
   Scenario Outline: a user tries to sign up
-    Given I am on the home page 
+    Given I am on "the home page" 
     And the email 'good@dog.com' is already in use
     And there have been no emails sent by the server
-    When I follow "Sign Up!"
+    When I follow "Sign up"
     And I fill in "Name" with "<name>"
     And I fill in "Email" with "<email>"
     And I fill in "Password" with "<password>"
     And I fill in "Password confirmation" with "<password confirmation>"
     And I press "Sign up"
-    Then I should see content that includes "<message>"
+    Then I should see "<message>"
     And "<num emails>" emails have been sent
     And if an email was sent, it was addressed to "<email>"
 

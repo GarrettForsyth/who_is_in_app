@@ -8,7 +8,7 @@ Feature: a team captain uploads a schedule
     Given I have created and confirmed my account
     And I am signed in
     And I am captain of a team
-    And I am on my team's show page
+    And I am on "my team's page"
     When I follow "Upload Schedule"
     And I select "<file name>" from my documents
     And I press "Update"

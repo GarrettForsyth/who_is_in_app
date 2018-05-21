@@ -11,4 +11,8 @@ class Team < ApplicationRecord
   validates :activity_id, presence: true
   validates :min_members, presence: true
   validates :min_members, numericality: { greater_than: 0 }
+
+  def add_member(user)
+    members << user
+  end
 end

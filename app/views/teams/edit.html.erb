@@ -1,8 +1,23 @@
 <%= form_for @team, html: { multipart: true } do |f| %>
   <%= render 'layouts/error_messages', object: f.object %>
   <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
     <%= f.label :schedule %>
     <%= f.file_field :schedule %>
+  </div>
+  <div class="field">
+    <%= f.label :activity %>
+    <% Activity.all.each do |activity| %>
+      <%= f.radio_button(:activity_id, activity.id) %>
+      <%= f.label "activity_id_#{activity.id}".to_sym, activity.name %><br/>
+    <% end %>
+  </div>
+  <div class="field">
+    <%= f.label :minimum_members_needed_for_an_event %>
+    <%= f.number_field :min_members, min: 1 %>
   </div>
   <div class="actions">
     <%= f.submit 'Update' %>

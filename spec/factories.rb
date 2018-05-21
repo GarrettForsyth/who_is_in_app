@@ -1,18 +1,19 @@
 FactoryBot.define do
   factory :team do
     sequence(:name) { |n| "cool team name #{n}" }
-    association :activity, factory: :activity
+    activity_id 1
     min_members 5
-    association :captain, factory: :user 
+    association :captain, factory: :user
+    
+    after(:create) do |team| 
+      team.members = [team.captain]
+    end
   end
-  factory :activity do
-    name "Baseball"
-  end
+
   factory :user do
-    name  Faker::Name.first_name
-    email Faker::Internet.email
+    sequence(:name) { |n| "user#{n}" }
+    sequence(:email) { |n| "cool#{n}@email.com" }
     password Faker::Internet.password(6)
 
-    after(:create, &:confirm)
-  end
+    after(:create, &:confirm) end
 end

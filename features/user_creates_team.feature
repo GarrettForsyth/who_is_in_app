@@ -7,7 +7,7 @@ Feature: a user creates a team
   Scenario Outline: a user tries to create a team
     Given I have created and confirmed my account
     And I am signed in
-    And I am currently on my dashboard
+    And I am on "my dashboard"
     And I currently have zero teams
     When I follow "Create New Team"
     And I fill in "Name" with "<team name>"

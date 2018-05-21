@@ -6,6 +6,7 @@
     <%= f.text_field :name, autofocus: true %>
   </div>
   <div class="field">
+    <%= f.label :activity %>
     <% Activity.all.each do |activity| %>
       <%= f.radio_button(:activity_id, activity.id) %>
       <%= f.label "activity_id_#{activity.id}".to_sym, activity.name %><br/>
