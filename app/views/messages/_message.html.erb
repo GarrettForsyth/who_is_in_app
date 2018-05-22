@@ -4,6 +4,9 @@
       <b> <%= message.author.name %></b> 
       <%= message.created_at.in_time_zone('EST').strftime("%b %d %I:%M") %>
     </p>
+    <%= button_to 'delete message', message,
+      method: :delete,
+      data: { confirm: 'Delete message?' } %>
   </div>
   <div class="content">
     <p> <%= message.content %></p>

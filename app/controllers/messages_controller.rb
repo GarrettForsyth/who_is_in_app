@@ -1,5 +1,6 @@
 class MessagesController < ApplicationController
-  before_action :authorize_member, except: :new
+  before_action :authorize_member, except: [:new, :destroy]
+  before_action :authorize_destroy, only: :destroy
   def new
     @team = Team.find(params[:team])
     @message = Message.new
@@ -16,6 +17,9 @@ class MessagesController < ApplicationController
     end
   end
 
+  def destroy
+  end
+
   private
 
   def message_params
@@ -26,5 +30,8 @@ class MessagesController < ApplicationController
     team = Team.find(params[:message][:team_id])
     user = User.find(params[:message][:author_id])
     redirect_to team_path(team) unless team.members.include?(user)
+  end
+
+  def authorize_destroy
   end
 end

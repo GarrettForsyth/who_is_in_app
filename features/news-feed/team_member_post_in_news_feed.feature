@@ -16,6 +16,6 @@ Feature: A team member posts a message in a team's news feed
   And I should see "<content>"
    
     Scenarios:
-    | content     | flash                   |
-    | Hello world | Message posted!         |
+    | content     | flash                  |
+    | Hello world | Message posted!        |
     |             | Content can't be blank |
