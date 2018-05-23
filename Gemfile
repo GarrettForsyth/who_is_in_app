@@ -50,6 +50,7 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'guard-rspec', require: false
+  gem 'poltergeist'
   gem 'rspec-rails', '~> 3.7'
   gem 'selenium-webdriver'
 end

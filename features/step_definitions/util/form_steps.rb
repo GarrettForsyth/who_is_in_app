@@ -15,9 +15,10 @@ When("I select {string} from my documents") do |file_name|
               "spec/fixtures/#{file_name}")
 end
 
-When("I press {string} and confirm {string}") do |button, msg|
-  accept_confirm msg do
-    click_button(button)
+When("I press and confirm {string}") do |button|
+  page.accept_confirm do
+    click_button button
   end
 end
+
 

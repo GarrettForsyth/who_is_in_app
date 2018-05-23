@@ -18,6 +18,10 @@ class MessagesController < ApplicationController
   end
 
   def destroy
+    if Message.find(params[:id]).destroy
+      flash[:notice] = "Message deleted!"
+      redirect_back(fallback_location: dashboard_path)
+    end
   end
 
   private
