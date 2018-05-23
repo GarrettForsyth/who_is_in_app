@@ -11,7 +11,10 @@
   <% end %>
 <% end %>
 
-<%= link_to 'Post a message', new_message_path( team: @team.id )%>
+<%= link_to 'Post a message', new_team_message_path(@team.id)%>
 
-<%= render partial: 'news_feed', locals: { team: @team } %>
+<div class="news-feed">
+  <%= render @team.messages %>
+</div>
+
 

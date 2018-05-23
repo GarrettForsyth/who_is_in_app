@@ -5,11 +5,13 @@ RSpec.describe MessagesController, type: :controller do
     before :each do
       @author = FactoryBot.create(:user)
       @team = FactoryBot.create(:team, captain: @author)
-      @params = { message: {
-        author_id: @author.id,
-        team_id: @team.id,
-        content: 'hello world!'
-      } }
+      @params = {
+        message: {
+          author_id: @author.id,
+          content: 'hello world!'
+        },
+        team_id: @team.id
+      }
       sign_in @author
     end
     context 'with valid attributes' do
@@ -26,7 +28,7 @@ RSpec.describe MessagesController, type: :controller do
 
       it 'rejects a post created by a non team member' do
         @bad_user = FactoryBot.create(:user)
-        @params[:message][:author_id] = @bad_user.id 
+        @params[:message][:author_id] = @bad_user.id
         expect { post(:create, params: @params) }.to change(Message, :count).by(0)
       end
     end

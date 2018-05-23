@@ -1,11 +1,11 @@
-<%= form_for [@team, @message] do |f| %>
+<%= form_for [ @message, @comment] do |f| %>
   <%= render 'layouts/error_messages', object: f.object %>
   <%= f.hidden_field :author_id, value: current_user.id %>
   <div class="field">
     <%= f.label :content %>
-    <%= f.text_area :content, autofocus: true %>
+    <%= f.text_area :content, autofocus: true  %>
   </div>
   <div class="actions">
-    <%= f.submit "Post" %>
+    <%= f.submit 'Add comment' %>
   </div>
 <% end %>

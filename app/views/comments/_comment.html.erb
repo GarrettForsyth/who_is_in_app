@@ -1,0 +1,14 @@
+<div class="comment">
+
+  <div class="author">
+    <p>
+      <b> <%= comment.author.name %></b> 
+      <%= comment.created_at.in_time_zone('Eastern Time (US & Canada)').strftime("%b %d %I:%M") %>
+    </p>
+  </div>
+
+  <div class="comment-content">
+    <%= comment.content %>
+  </div>
+
+</div>

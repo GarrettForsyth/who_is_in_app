@@ -1,8 +1,12 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: 'users/registrations' }
-  resources :teams
+
+  resources :teams, shallow: true do
+    resources :messages
+  end
+
   resources :messages, shallow: true do
-    resources :teams
+    resources :comments
   end
 
   root to: 'static_pages#home'

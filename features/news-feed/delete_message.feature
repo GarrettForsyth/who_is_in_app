@@ -11,10 +11,12 @@ Feature: Message author deletes message
     And I am signed in
     And I am a member of a team
     And I have posted a message
+    And a team member has commented on my message
     When I access "my team's page"
     And I press and confirm "delete message"
     Then I should see "Message deleted"
     And I should not see the message's content
+    And I should not see the comment's content
 
 
   Scenario: I cannot delete a teammates message

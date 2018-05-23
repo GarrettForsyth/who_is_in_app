@@ -1,18 +1,17 @@
 class MessagesController < ApplicationController
   before_action :authorize_member, except: [:new, :destroy]
-  before_action :authorize_destroy, only: :destroy
   def new
-    @team = Team.find(params[:team])
+    @team = Team.find(params[:team_id])
     @message = Message.new
   end
 
   def create
-    @team = Team.find(params[:message][:team_id])
     @message = Message.new(message_params)
     if @message.save
       flash[:notice] = 'Message posted!'
       redirect_to team_path(@message.team)
     else
+      @team = Team.find(params[:team_id])
       render 'new'
     end
   end
@@ -27,15 +26,14 @@ class MessagesController < ApplicationController
   private
 
   def message_params
-    params.require(:message).permit(:author_id, :team_id, :content)
+    params.require(:message).permit(:author_id, :content)
+      .merge({ team_id: params[:team_id] })
   end
 
   def authorize_member
-    team = Team.find(params[:message][:team_id])
+    team = Team.find(params[:team_id])
     user = User.find(params[:message][:author_id])
     redirect_to team_path(team) unless team.members.include?(user)
   end
 
-  def authorize_destroy
-  end
 end

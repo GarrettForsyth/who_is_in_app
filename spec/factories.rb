@@ -1,10 +1,15 @@
 FactoryBot.define do
+  factory :comment do
+    association :author, factory: :user
+    association :message, factory: :message
+    content "MyCommentText"
+  end
   factory :activity do
     sequence(:name) { |n| "Activity#{n}" }
   end
 
   factory :message do
-    content "MyText"
+    content "MyMessageText"
     association :author, factory: :user
     association :team, factory: :team
   end
