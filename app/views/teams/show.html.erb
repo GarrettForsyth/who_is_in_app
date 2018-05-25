@@ -2,6 +2,7 @@
 <h3><%= @team.activity.name %></h3>
 <%= link_to 'Upload Schedule', edit_team_path(@team) %>
 <%= link_to 'Edit Team Information', edit_team_path(@team) %>
+<%= link_to 'Invite', new_team_invitation_path(@team.id) %>
 
 <% if @team.schedule? %>
   <% if @team.schedule.file.extension.downcase == 'pdf' %>

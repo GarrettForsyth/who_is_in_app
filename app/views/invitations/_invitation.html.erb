@@ -1,0 +1,11 @@
+<div class="team-invitation">
+  <%= invitation.from.name %>
+  has invited you to join <%= invitation.team.name %>!
+  <%= button_to 'accept invite',
+    invitation_path(invitation),
+    method: :patch %>
+
+  <%= button_to 'decline invite',
+    invitation_path(invitation),
+    method: :delete %>
+</div>

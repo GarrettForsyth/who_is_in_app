@@ -1,4 +1,13 @@
 FactoryBot.define do
+  factory :invitation do
+    from nil
+    to nil
+  end
+  factory :team_invite_request do
+    from nil
+    to nil
+    team nil
+  end
   factory :comment do
     association :author, factory: :user
     association :message, factory: :message

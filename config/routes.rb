@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   resources :teams, shallow: true do
     resources :messages
+    resources :invitations
   end
 
   resources :messages, shallow: true do

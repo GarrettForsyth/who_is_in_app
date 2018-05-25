@@ -1,1 +1,5 @@
 <%= link_to 'Create New Team', new_team_path %>
+
+<div class="pending-team-invite-request">
+  <%= render current_user.invitations %>
+</div>
