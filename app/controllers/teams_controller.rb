@@ -40,18 +40,18 @@ class TeamsController < ApplicationController
   private
 
   def team_params
-    params.require(:team).permit(:name, :activity_id, :min_members, :user_id, :schedule)
+    params.require(:team).permit(:name, :activity_id,
+                                 :minimum_members_needed_for_an_event,
+                                 :user_id, :schedule)
   end
 
   def authenticate_captain
-    if Team.find(params[:id]).captain.id != current_user.id
-      redirect_to dashboard_path
-    end
+    team = Team.find(params[:id])
+    redirect_to team_path unless team.captain?(current_user)
   end
 
   def authenticate_member
-    unless Team.find(params[:id]).members.include?(current_user)
-      redirect_to dashboard_path
-    end
+    team = Team.find(params[:id])
+    redirect_to dashboard_path unless team.member?(current_user)
   end
 end

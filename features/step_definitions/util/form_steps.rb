@@ -1,3 +1,7 @@
+When("I fill in {string} with {min members}") do |label, value|
+  (fill_in label, with: value) unless label.blank?
+end
+
 When("I fill in {string} with {string}") do |label, value|
   (fill_in label, with: value) unless label.blank?
 end

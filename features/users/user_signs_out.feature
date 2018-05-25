@@ -6,9 +6,11 @@ Feature: A user signs out
 
   Scenario:
 
-    Given I have created and confirmed my account
-    And I am signed in
+    Given I am signed in
     And I am on "my dashboard"
     When I follow "sign out"
-    Then I should not be logged in
+    And I access "my dashboard"
+    Then I should be routed to "sign in"  
+
+
 

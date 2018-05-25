@@ -5,11 +5,11 @@ Feature: Message author deletes message
   I want the option to delete my messages
   To delete messages I don't want seen anymore
 
-  Scenario: I delete my own message
+  Background:
+    Given I am signed in
 
-    Given I have created and confirmed my account
-    And I am signed in
-    And I am a member of a team
+  Scenario: I delete my own message
+    Given I am a member of a team
     And I have posted a message
     And a team member has commented on my message
     When I access "my team's page"
@@ -18,20 +18,15 @@ Feature: Message author deletes message
     And I should not see the message's content
     And I should not see the comment's content
 
-
-  Scenario: I cannot delete a teammates message
-    Given I have created and confirmed my account
-    And I am signed in
-    And I am a member of a team
+Scenario: I cannot delete a teammates message
+    Given I am a member of a team
     And I have a teammate
     And my teammate has posted a message
     When I access "my team's page"
     Then I should not see 'delete message'
 
   Scenario: a team captain can delete another member's message
-    Given I have created and confirmed my account
-    And I am signed in
-    And I am a captain of a team
+    Given I am captain of a team
     And I have a teammate
     And my teammate has posted a message
     When I access "my team's page"
