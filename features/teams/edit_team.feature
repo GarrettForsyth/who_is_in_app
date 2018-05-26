@@ -5,15 +5,10 @@ Feature: a team captain edits team information
   To fix mistakes, update or improve upon the current information so I
   can communicate better with my teammates
 
-  Background:
-
-    Given I am signed in
-    And I am captain of a team
+  Scenario Outline:
+    Given I am signed in as team captain
     And I am on "my team's page"
     When I follow "Edit Team Information"
-
-
-  Scenario Outline:
     When I fill in "<label>" with "<attribute>"
     And I select "<activity>"
     And I press "submit" 
@@ -37,6 +32,9 @@ Feature: a team captain edits team information
 
       
   Scenario Outline: a team captain uploads a schedule
+    Given I am signed in as team captain
+    And I am on "my team's page"
+    When I follow "Edit Team Information"
     And I select "<file name>" from my documents
     And I press "submit"
     Then I should see "<message>"
@@ -53,3 +51,9 @@ Feature: a team captain edits team information
     Scenarios: invalid files
     | file name     | message                                                                         | file type |
     | schedule.blah | Schedule cannot be a \"blah\" file. Allowed types are: jpg, jpeg, gif, png, pdf | invalid   |
+
+  Scenario: an unauthorized user
+    Given I am signed in as a team member
+    And I am on "my team's page"
+    Then I should not see 'Edit Team Information'
+

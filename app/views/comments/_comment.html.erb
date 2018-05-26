@@ -11,4 +11,12 @@
     <%= comment.content %>
   </div>
 
+  <% if current_user == comment.message.team.captain %>
+    <%= button_to 'delete comment', 
+      comment_path(comment),
+      data: { confirm: 'Delete comment?' },
+      method: :delete
+    %>
+  <% end %>
+
 </div>

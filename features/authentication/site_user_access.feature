@@ -32,8 +32,7 @@ Feature: site access is restricted to unauthorized users
 
 
   Scenario Outline: for a signed in user that is a member of a team, but not captain
-    Given I am signed in
-    And I am a member of a team
+    Given I am signed in as a team member
     When I access "<path>"
     Then I should be routed to "<destination>"
 
@@ -45,8 +44,7 @@ Feature: site access is restricted to unauthorized users
 
 
   Scenario Outline: for a signed in user that is captain of a team
-    Given I am signed in
-    And I am captain of a team
+    Given I am signed in as team captain
     When I access "<path>"
     Then I should be routed to "<destination>"
 

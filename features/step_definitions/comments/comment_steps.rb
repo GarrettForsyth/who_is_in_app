@@ -1,6 +1,5 @@
 Given("a team member has commented on my message") do
-  @comment = FactoryBot.create(:comment, author: @user, message: @message)
-  @message.comments << @comment
+  @comment = FactoryBot.create(:comment, author: @teammate, message: @message)
 end
 
 Then("I should see my comment's content") do

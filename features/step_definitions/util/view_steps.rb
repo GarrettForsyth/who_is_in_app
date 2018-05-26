@@ -17,6 +17,6 @@ Then("I should see {string} within {string}") do |string, container|
   end
 end
 
-Then("I should not see {string}") do |string|
-  expect(page).to_not have_selector(:link_or_button, 'delete message')
+Then("I should not see {string}") do |button|
+  expect(page).to_not have_selector(:link_or_button, button)
 end

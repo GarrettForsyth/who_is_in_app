@@ -3,10 +3,8 @@ Feature: a user comments on a message
   I want to comment on a message
   To communicate my thoughts regarding the message with teammates
 
-  Scenario:
-    Given I am signed in
-    And I am a member of a team
-    And I have a teammate
+  Scenario: I comment on a teammates message
+    Given I am signed in as a team member
     And my teammate has posted a message
     And I am on "my team's page"
     When I follow 'comment'
@@ -14,3 +12,12 @@ Feature: a user comments on a message
     And I press 'Add comment'
     Then I should see the message's content
     Then I should see my comment's content
+
+  Scenario: I create an invaliid comment on a teammates message
+    Given I am signed in as a team member
+    And my teammate has posted a message
+    And I am on "my team's page"
+    When I follow 'comment'
+    And I fill in "Content" with ""
+    And I press 'Add comment'
+    Then I should see "Content can't be blank"

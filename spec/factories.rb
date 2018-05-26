@@ -3,11 +3,6 @@ FactoryBot.define do
     from nil
     to nil
   end
-  factory :team_invite_request do
-    from nil
-    to nil
-    team nil
-  end
   factory :comment do
     association :author, factory: :user
     association :message, factory: :message
@@ -26,7 +21,7 @@ FactoryBot.define do
   factory :team do
     sequence(:name) { |n| "cool team name #{n}" }
     activity_id 1
-    min_members 5
+    minimum_members_needed_for_an_event 5
     association :captain, factory: :user
     
     after(:create) do |team| 

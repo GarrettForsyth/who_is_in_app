@@ -1,1 +1,7 @@
 <%= render partial: 'team_form' %>
+
+<%= button_to 'delete team',
+  team_path(@team),
+  data: { confirm: 'Delete team?' },
+  class:  'delete-btn',
+  method: :delete %>

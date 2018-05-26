@@ -1,5 +1,10 @@
 <%= link_to 'Create New Team', new_team_path %>
+<%= link_to 'edit account', edit_registration_path(current_user) %>
 
 <div class="pending-team-invite-request">
   <%= render current_user.invitations %>
+</div>
+
+<div class="my-teams">
+  <%= render current_user.teams %>
 </div>
