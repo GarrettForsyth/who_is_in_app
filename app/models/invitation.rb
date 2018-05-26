@@ -3,8 +3,12 @@ class Invitation < ApplicationRecord
   belongs_to :to, class_name: 'User'
   belongs_to :team
 
+  validate :not_teammate
+  validate :not_already_sent
+  validate :sender_is_captain
+
   def invite_email
-    User.find(to).email if to
+    to.email if to
   end
 
   def invite_email=(email)
@@ -12,6 +16,22 @@ class Invitation < ApplicationRecord
   end
 
   def accept
-    team.members << to
+    team.add_member(to)
+  end
+
+  private
+
+  def sender_is_captain
+    errors.add(:from, 'must be team captain') unless from && team && team.captain?(from)
+  end
+
+  def not_teammate
+    errors.add(:to, 'is already a team member') if to && team && team.member?(to)
+  end
+
+  def not_already_sent
+    if Invitation.find_by(to: to, from: from, team: team)
+      errors.add(:to, 'has already received this invitation')
+    end
   end
 end

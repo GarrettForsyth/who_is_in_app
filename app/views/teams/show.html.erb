@@ -1,7 +1,9 @@
 <h1><%=@team.name %></h1>
 <h3><%= @team.activity.name %></h3>
-<%= link_to 'Edit Team Information', edit_team_path(@team) if current_user == @team.captain %>
-<%= link_to 'Invite', new_team_invitation_path(@team.id) %>
+<% if current_user == @team.captain %>
+  <%= link_to 'Edit Team Information', edit_team_path(@team) %>
+  <%= link_to 'Invite', new_team_invitation_path(@team.id) %>
+<% end %>
 
 <% if @team.schedule? %>
   <% if @team.schedule.file.extension.downcase == 'pdf' %>

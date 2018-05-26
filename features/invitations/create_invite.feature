@@ -4,22 +4,45 @@ Feature: a team captain invites a user thier team
   I want to invite users to join my team
   So I can communicate with that user better as my teammate
 
-  Scenario Outline:
-    Given I have created and confirmed my account
-    And I am signed in
-    And I am captain of a team
+  Scenario: captain sends and invitation to a new member 
+    Given I am signed in as team captain
     And I am on "my team's page"
     And there is another user, currently not on my team
     When I follow "Invite"
     And I fill in "Invite email" with the user's email
     And I press "Invite"
-    And the invited user signs in
-    And the invited user visits "my dashboard" 
-    And the invited user presses "<response>" 
-    And the invited user visits "my team's page"
-    Then he should be on "<expected path>"
+    Then I should see "Invitation sent!"
 
-    Scenarios:
-      | response       | expected path  |
-      | accept invite  | my team's page |
-      | decline invite | my dashboard   |
+  Scenario: captain sends and invitation to an invalid member
+    Given I am signed in as team captain
+    And I am on "my team's page"
+    And there is another user, currently not on my team
+    When I follow "Invite"
+    And I fill in "Invite email" with "not_a_user@email.com"
+    And I press "Invite"
+    Then I should see "Recipient must exist"
+
+  Scenario: captain send in invitation to someone is already a team member
+    Given I am signed in as team captain
+    And I have a teammate
+    And I am on "my team's page"
+    When I follow "Invite"
+    And I fill in "Invite email" with my teammate's email
+    And I press "Invite"
+    Then I should see "Recipient is already a team member"
+
+  Scenario: captain sends an invitation to the same person twice
+    Given I am signed in as team captain
+    And I am on "my team's page"
+    And there is another user, currently not on my team
+    And I have already sent this user an invitation
+    When I follow "Invite"
+    And I fill in "Invite email" with the user's email
+    And I press "Invite"
+    Then I should see "Recipient has already received this invitation"
+
+  Scenario: an invalid user sends an invitation 
+    Given I am signed in as a team member
+    And I am on "my team's page"
+    Then I should not see 'Invite'
+

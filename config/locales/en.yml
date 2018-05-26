@@ -30,6 +30,15 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  activerecord:
+    attributes:
+      invitation:
+        to: 'Recipient'
+        from: 'Sender'
   errors:
+    models:
+      invitation:
+        attributes:
+          required: 'must exist'
     messages:
       extension_whitelist_error: "cannot be a %{extension} file. Allowed types are: %{allowed_types}"

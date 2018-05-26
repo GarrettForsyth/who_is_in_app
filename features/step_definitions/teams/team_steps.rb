@@ -34,10 +34,10 @@ When("I follow my team's link") do
   click_link @team.name
 end
 
-Then("I should see my team") do
+Then("I should see my/the team( name)") do
   expect(page).to have_content(@team.name, count: 1)
 end
 
-Then("I should not see my team") do
+Then("I should not see my/the team( name)") do
   expect(page).to_not have_content(@team.name)
 end
