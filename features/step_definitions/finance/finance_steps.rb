@@ -10,9 +10,7 @@ end
 
 When("beside my teammate's name I press {string}") do |button|
   within("//div[@id='uid_#{@teammate.id}']") do
-    within("div[@class='paid-btn']") do
-      click_button button
-    end
+    click_button button
   end
 end
 

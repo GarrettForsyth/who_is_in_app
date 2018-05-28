@@ -20,7 +20,12 @@ class Team < ApplicationRecord
 
   def add_member(user)
     members << user
-    Finance.create(user: user, team: self)
+    Finance.create!(user: user, team: self)
+  end
+
+  def remove_member(user)
+    members.delete(user)
+    user.finance_for(self).destroy
   end
 
   def member?(user)

@@ -16,6 +16,10 @@ Rails.application.routes.draw do
     resource :roster, only: [:show]
   end
 
+  resources :teams do
+    patch :remove_member
+  end
+
   resources :messages, shallow: true do
     resources :comments
   end

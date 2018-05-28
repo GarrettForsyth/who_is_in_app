@@ -1,7 +1,8 @@
 class TeamsController < ApplicationController
-  before_action :authenticate_captain,  except: %i[new create show]
-  before_action :authenticate_member,   except: %i[new create]
+  before_action :authenticate_captain,  except: %i[new create show remove_member]
+  before_action :authenticate_member,   except: %i[new create remove_member]
   before_action :authenticate_current_user, only: :create
+  before_action :authorize_remove_member, only: :remove_member
 
   def new
     @team = Team.new
@@ -13,7 +14,6 @@ class TeamsController < ApplicationController
     if @team.save
       @team.add_member(current_user)
       @team.create_roster
-
       flash[:notice] = 'Team successfully created!'
       redirect_to @team
     else
@@ -37,6 +37,14 @@ class TeamsController < ApplicationController
     else
       render 'edit'
     end
+  end
+
+  def remove_member
+    team = Team.find(params[:team_id])
+    member = User.find(params[:id])
+    team.remove_member(member)
+    flash[:notice] = 'Member successfully removed!'
+    redirect_back(fallback_location: dashboard_path)
   end
 
   def destroy
@@ -67,9 +75,9 @@ class TeamsController < ApplicationController
 
   def authenticate_captain
     team = Team.find(params[:id])
-    redirect_to team_path unless team.captain?(current_user)
+    redirect_to team_path(team) unless team.captain?(current_user)
   rescue ActiveRecord::RecordNotFound
-    redirect_to team_path
+    redirect_to team_path(team)
   end
 
   def authenticate_member
@@ -77,5 +85,12 @@ class TeamsController < ApplicationController
     redirect_to dashboard_path unless team.member?(current_user)
   rescue ActiveRecord::RecordNotFound
     redirect_to dashboard_path
+  end
+
+  def authorize_remove_member
+    team = Team.find(params[:team_id])
+    redirect_to team_path(team) unless team.captain?(current_user)
+  rescue ActiveRecord::RecordNotFound
+    redirect_to team_path(team)
   end
 end

@@ -6,3 +6,8 @@ Given("I have been sent an invitation") do
                                  from: @captain,
                                  team: @team)
 end
+
+Given("I have been kicked from the team sending the invitation") do
+  @team.add_member(@user)
+  @team.remove_member(@user)
+end
