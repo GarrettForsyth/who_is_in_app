@@ -1,0 +1,25 @@
+<h1>Roster for <%= @roster.team.name %></h1>
+<% @roster.team.members.each do |member| %>
+
+  <% if @roster.team.captain?(current_user) %>
+    <% finance = member.finance_for(@roster.team) %>
+    <% paid_status = finance.paid ? ' paid' : ' not-paid' %>
+  <% end %>
+  <div id=<%="uid_#{member.id}"%> class="roster-entry<%="#{paid_status || ''}"%>">
+    <div class="name">
+      <%= member.name %>
+    </div>
+    <div class="email">
+      <%= member.email %>
+    </div>
+    <% if @roster.team.captain?(current_user) %>
+      <div class="paid-btn">
+        <%= button_to finance.paid ? 'mark as not paid' : 'mark as paid',
+          finance_path(finance),
+          method: :patch
+        %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+

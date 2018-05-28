@@ -10,6 +10,8 @@ class Team < ApplicationRecord
   belongs_to :activity
 
   has_many :messages
+  has_many :finances, dependent: :destroy
+  has_one :roster, dependent: :destroy
 
   validates :name, presence: true
   validates :activity_id, presence: true
@@ -18,6 +20,7 @@ class Team < ApplicationRecord
 
   def add_member(user)
     members << user
+    Finance.create(user: user, team: self)
   end
 
   def member?(user)

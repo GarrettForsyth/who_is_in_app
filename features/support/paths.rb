@@ -11,6 +11,8 @@ module NavigationHelpers
       edit_team_path(@team)
     when /sign in/
       new_user_session_path
+    when /the team's roster path/
+      team_roster_path(@team)
     end
   end
 end

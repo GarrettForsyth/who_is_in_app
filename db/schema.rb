@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180524221310) do
+ActiveRecord::Schema.define(version: 20180528133825) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,17 @@ ActiveRecord::Schema.define(version: 20180524221310) do
     t.datetime "updated_at", null: false
     t.index ["author_id"], name: "index_comments_on_author_id"
     t.index ["message_id"], name: "index_comments_on_message_id"
+  end
+
+  create_table "finances", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "team_id"
+    t.boolean "paid", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["team_id"], name: "index_finances_on_team_id"
+    t.index ["user_id", "team_id"], name: "index_finances_on_user_id_and_team_id", unique: true
+    t.index ["user_id"], name: "index_finances_on_user_id"
   end
 
   create_table "invitations", force: :cascade do |t|
@@ -50,6 +61,13 @@ ActiveRecord::Schema.define(version: 20180524221310) do
     t.bigint "team_id"
     t.index ["author_id"], name: "index_messages_on_author_id"
     t.index ["team_id"], name: "index_messages_on_team_id"
+  end
+
+  create_table "rosters", force: :cascade do |t|
+    t.bigint "team_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["team_id"], name: "index_rosters_on_team_id"
   end
 
   create_table "team_invite_requests", force: :cascade do |t|
@@ -107,11 +125,14 @@ ActiveRecord::Schema.define(version: 20180524221310) do
 
   add_foreign_key "comments", "messages"
   add_foreign_key "comments", "users", column: "author_id"
+  add_foreign_key "finances", "teams"
+  add_foreign_key "finances", "users"
   add_foreign_key "invitations", "teams"
   add_foreign_key "invitations", "users", column: "from_id"
   add_foreign_key "invitations", "users", column: "to_id"
   add_foreign_key "messages", "teams"
   add_foreign_key "messages", "users", column: "author_id"
+  add_foreign_key "rosters", "teams"
   add_foreign_key "team_invite_requests", "teams"
   add_foreign_key "team_invite_requests", "users", column: "from_id"
   add_foreign_key "team_invite_requests", "users", column: "to_id"

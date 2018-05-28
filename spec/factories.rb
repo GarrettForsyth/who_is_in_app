@@ -1,4 +1,11 @@
 FactoryBot.define do
+  factory :finance do
+    association :user, factory: :user
+    association :team, factory: :team
+  end
+  factory :roster do
+    association :team, factory: :team
+  end
   factory :invitation do
     association :from, factory: :user
     association :to, factory: :user
@@ -30,9 +37,15 @@ FactoryBot.define do
     minimum_members_needed_for_an_event 5
     association :captain, factory: :user
 
-    after(:create) do |team|
-      team.members = [team.captain]
+    after(:build) do |team|
+      team.members = [team.captain] if team.captain
+      team.roster ||= FactoryBot.build(:roster, team: team)
     end
+
+    after(:create) do |team|
+      FactoryBot.create(:finance, user: team.captain, team: team)
+    end
+
   end
 
   factory :user do

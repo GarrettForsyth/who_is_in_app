@@ -11,7 +11,8 @@ class TeamsController < ApplicationController
     @team = Team.new(team_params)
 
     if @team.save
-      @team.members << current_user
+      @team.add_member(current_user)
+      @team.create_roster
 
       flash[:notice] = 'Team successfully created!'
       redirect_to @team

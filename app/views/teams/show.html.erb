@@ -4,6 +4,7 @@
   <%= link_to 'Edit Team Information', edit_team_path(@team) %>
   <%= link_to 'Invite', new_team_invitation_path(@team.id) %>
 <% end %>
+<%= link_to 'roster', team_roster_path(@team.id) %>
 
 <% if @team.schedule? %>
   <% if @team.schedule.file.extension.downcase == 'pdf' %>
