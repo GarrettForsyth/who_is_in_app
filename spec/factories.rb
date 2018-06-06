@@ -1,4 +1,9 @@
 FactoryBot.define do
+  factory :event do
+    association :schedule, factory: :schedule
+    start "2018-06-06 12:52:08"
+    location "MyString"
+  end
   factory :schedule do
     association :team, factory: :team
     image { Rack::Test::UploadedFile.new(Rails.root.join('spec','fixtures', 'schedule.jpg',), 'image/jpg') }

@@ -1,0 +1,14 @@
+<%= form_for [ @schedule, @event] do |f| %>
+  <%= render 'layouts/error_messages', object: f.object %>
+  <div class="field">
+    <%= f.label :start %>
+    <%= f.datetime_field :start %>
+  </div>
+  <div class="field">
+    <%= f.label :location %>
+    <%= f.text_field :location %>
+  </div>
+  <div class="actions">
+    <%= f.submit 'submit' %>
+  </div>
+<% end %>

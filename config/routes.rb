@@ -7,14 +7,15 @@ Rails.application.routes.draw do
         as: :user_google_oauth2_create_calendar_callback
   end
 
-  get 'google/sign_in', to: 'google#sign_in', as: :sign_in_with_google
-  get 'callbacks/google_sign_in', to: 'callbacks#google_sign_in', as: :sign_in_with_google_callback
-
   resources :teams, shallow: true do
     resources :messages
     resources :invitations
     resources :schedules
     resource :roster, only: [:show]
+  end
+
+  resources :schedules, shallow: true do
+    resources :events
   end
 
   resources :calendars

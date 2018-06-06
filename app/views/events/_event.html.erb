@@ -1,0 +1,11 @@
+<div id=<%= event.id %> class="event">
+  <span class="team-name">
+    <%= event.schedule.team.name %>
+  </span>
+  <% if event.location %>
+    <span class="location"><%= event.location %></span>
+  <% end %>
+  <span class="start">
+    <%=event.start.in_time_zone('Eastern Time (US & Canada)').strftime("%b %d %I:%M") %>
+  </span>
+</div>

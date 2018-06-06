@@ -1,3 +1,3 @@
 Given("my team has a schedule") do
-  FactoryBot.create(:schedule, team: @team)
+  @schedule = FactoryBot.create(:schedule, team: @team)
 end

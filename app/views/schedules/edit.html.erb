@@ -1,4 +1,5 @@
 <%= render partial: 'schedule_form' %>
+<%= link_to 'add event', new_schedule_event_path(@schedule.id)%>
 <%= button_to 'delete schedule',
   schedule_path(@schedule),
   method: :delete,

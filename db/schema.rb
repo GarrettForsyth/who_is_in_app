@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180606002746) do
+ActiveRecord::Schema.define(version: 20180606165208) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,15 @@ ActiveRecord::Schema.define(version: 20180606002746) do
     t.datetime "updated_at", null: false
     t.index ["author_id"], name: "index_comments_on_author_id"
     t.index ["message_id"], name: "index_comments_on_message_id"
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.bigint "schedule_id"
+    t.datetime "start"
+    t.string "location"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["schedule_id"], name: "index_events_on_schedule_id"
   end
 
   create_table "finances", force: :cascade do |t|
@@ -128,6 +137,7 @@ ActiveRecord::Schema.define(version: 20180606002746) do
 
   add_foreign_key "comments", "messages"
   add_foreign_key "comments", "users", column: "author_id"
+  add_foreign_key "events", "schedules"
   add_foreign_key "finances", "teams"
   add_foreign_key "finances", "users"
   add_foreign_key "invitations", "teams"

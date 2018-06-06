@@ -22,6 +22,10 @@
   <% end %>
 <% end %>
 
+<% if @team.schedule %>
+  <%= render @team.schedule.upcoming_events %>
+<% end %>
+
 <%= link_to 'Post a message', new_team_message_path(@team.id)%>
 
 <div class="news-feed">
