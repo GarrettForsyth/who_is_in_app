@@ -1,0 +1,6 @@
+<%= render partial: 'schedule_form' %>
+<%= button_to 'delete schedule',
+  schedule_path(@schedule),
+  method: :delete,
+  data: { confirm: 'Delete schedule?' },
+  class: 'delete-btn'%>

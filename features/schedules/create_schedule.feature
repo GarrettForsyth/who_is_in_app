@@ -26,6 +26,11 @@ Feature: a team captain uploads a schedule
     | file name     | message                                                                         | file type |
     | schedule.blah | Image cannot be a \"blah\" file. Allowed types are: jpg, jpeg, gif, png, pdf | invalid   |
 
+  Scenario: invalid user uploads a file
+    Given I am signed in as a team member
+    When I access "my team's page"
+    Then I should not see "add schedule"
+
 
 #Scenario: a team captain uploads an image as a schedule
     #Given I am signed in as team captain

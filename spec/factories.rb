@@ -1,4 +1,8 @@
 FactoryBot.define do
+  factory :schedule do
+    association :team, factory: :team
+    image { Rack::Test::UploadedFile.new(Rails.root.join('spec','fixtures', 'schedule.jpg',), 'image/jpg') }
+  end
   factory :finance do
     association :user, factory: :user
     association :team, factory: :team
