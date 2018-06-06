@@ -1,0 +1,12 @@
+<%= form_for [@team, @schedule], html: { multipart: true } do |f| %>
+  <%= render 'layouts/error_messages', object: f.object %>
+  <div class="field">
+    <%= f.label :image %>
+    <%= f.file_field :image %>
+  </div>
+  <div class="action">
+    <%= f.submit 'submit' %>
+  </div>
+<% end %>
+
+<%= link_to 'attach google calendar', new_calendar_path  %>

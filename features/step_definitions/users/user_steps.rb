@@ -2,6 +2,7 @@ Given("I have created and confirmed my account") do
   @user = FactoryBot.create(:user)
 end
 
+
 Given("I am signed in") do
   @user = FactoryBot.create(:user) 
   sign_in(@user)
@@ -23,9 +24,21 @@ Given("I am signed in as a team member") do
   sign_in(@user)
 end
 
-
-Given("the email {string} is already in use") do |email|
-  FactoryBot.create(:user, email: email)
+Given("I have an account with Google associated with the email {string}") do |email|
+  OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new(
+    provider: 'google_oauth2',
+    uid: '123545',
+    info: {
+      name: 'Mock Name (omniauth)',
+      email: email
+    },
+    credentials: {
+      token: 'mock_token',
+      expires: true,
+      expires_at: 100_000,
+      refresh_token: 'mock_refresh_token'
+    }
+  )
 end
 
 When("I confirm my current password") do

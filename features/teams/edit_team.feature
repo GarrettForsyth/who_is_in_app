@@ -31,27 +31,6 @@ Feature: a team captain edits team information
       | Minimum members needed for an event | -1        |          | Min members must be greater than 0 |
 
       
-  Scenario Outline: a team captain uploads a schedule
-    Given I am signed in as team captain
-    And I am on "my team's page"
-    When I follow "Edit Team Information"
-    And I select "<file name>" from my documents
-    And I press "submit"
-    Then I should see "<message>"
-    And I should see the image "<file name>" if "<file type>"
-
-    Scenarios: valid files
-    | file name     | message                            | file type |
-    | schedule.jpg  | Team information has been updated! | image     |
-    | schedule.jpeg | Team information has been updated! | image     |
-    | schedule.png  | Team information has been updated! | image     |
-    | schedule.gif  | Team information has been updated! | image     |
-    | schedule.pdf  | Team information has been updated! | pdf       |
-
-    Scenarios: invalid files
-    | file name     | message                                                                         | file type |
-    | schedule.blah | Schedule cannot be a \"blah\" file. Allowed types are: jpg, jpeg, gif, png, pdf | invalid   |
-
   Scenario: an unauthorized user
     Given I am signed in as a team member
     And I am on "my team's page"

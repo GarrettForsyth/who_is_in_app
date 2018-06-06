@@ -1,6 +1,4 @@
 class Team < ApplicationRecord
-  mount_uploader :schedule, ScheduleUploader
-
   alias_attribute :members, :users
   alias_attribute :minimum_members_needed_for_an_event, :min_members
 
@@ -11,7 +9,9 @@ class Team < ApplicationRecord
 
   has_many :messages
   has_many :finances, dependent: :destroy
+
   has_one :roster, dependent: :destroy
+  has_one :schedule, dependent: :destroy
 
   validates :name, presence: true
   validates :activity_id, presence: true

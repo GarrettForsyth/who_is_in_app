@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180528133825) do
+ActiveRecord::Schema.define(version: 20180606002746) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,15 +70,12 @@ ActiveRecord::Schema.define(version: 20180528133825) do
     t.index ["team_id"], name: "index_rosters_on_team_id"
   end
 
-  create_table "team_invite_requests", force: :cascade do |t|
-    t.bigint "from_id"
-    t.bigint "to_id"
+  create_table "schedules", force: :cascade do |t|
+    t.string "image"
     t.bigint "team_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["from_id"], name: "index_team_invite_requests_on_from_id"
-    t.index ["team_id"], name: "index_team_invite_requests_on_team_id"
-    t.index ["to_id"], name: "index_team_invite_requests_on_to_id"
+    t.index ["team_id"], name: "index_schedules_on_team_id"
   end
 
   create_table "teams", force: :cascade do |t|
@@ -88,7 +85,6 @@ ActiveRecord::Schema.define(version: 20180528133825) do
     t.datetime "updated_at", null: false
     t.integer "min_members"
     t.bigint "user_id"
-    t.string "schedule"
     t.index ["activity_id"], name: "index_teams_on_activity_id"
     t.index ["user_id"], name: "index_teams_on_user_id"
   end
@@ -118,6 +114,13 @@ ActiveRecord::Schema.define(version: 20180528133825) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"
+    t.string "provider"
+    t.string "uid"
+    t.string "token"
+    t.integer "expires_at"
+    t.boolean "expires"
+    t.string "refresh_token"
+    t.string "scope"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -133,9 +136,7 @@ ActiveRecord::Schema.define(version: 20180528133825) do
   add_foreign_key "messages", "teams"
   add_foreign_key "messages", "users", column: "author_id"
   add_foreign_key "rosters", "teams"
-  add_foreign_key "team_invite_requests", "teams"
-  add_foreign_key "team_invite_requests", "users", column: "from_id"
-  add_foreign_key "team_invite_requests", "users", column: "to_id"
+  add_foreign_key "schedules", "teams"
   add_foreign_key "teams", "activities"
   add_foreign_key "teams", "users"
 end

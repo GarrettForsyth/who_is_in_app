@@ -8,7 +8,8 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable,
-         :validatable, :confirmable
+         :validatable, :confirmable, :omniauthable,
+         omniauth_providers: %i[google_oauth2]
 
   before_save :downcase_email
 
@@ -22,7 +23,21 @@ class User < ApplicationRecord
     Finance.find_by(user: self, team: team)
   end
 
-  def paid_for?(team)
+  def self.from_google_oauth2(auth)
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.name = auth.info
+      user.email = auth.info.email
+      user.password = Devise.friendly_token[0,20]
+
+      # oauth stuff
+      user.token = auth.credentials.token
+      user.expires = auth.credentials.expires
+      user.expires_at = auth.credentials.expires_at
+      user.refresh_token = auth.credentials.refresh_token
+      user.scope = 'profile '
+
+      user.skip_confirmation!
+    end
   end
 
   private

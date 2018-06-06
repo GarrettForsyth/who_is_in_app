@@ -8,6 +8,14 @@ require 'cucumber/rails'
 require 'capybara/poltergeist'
 Capybara.javascript_driver = :poltergeist
 
+OmniAuth.config.test_mode = true
+
+# runs before each scenario
+Before do |scenario|
+  Rails.application.env_config["devise.mapping"] = Devise.mappings[:user] # If using Devise
+  Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:google_oauth2]
+end
+
 # Capybara defaults to CSS3 selectors rather than XPath.
 # If you'd prefer to use XPath, just uncomment this line and adjust any
 # selectors in your step definitions to use the XPath syntax.
@@ -35,19 +43,19 @@ ActionController::Base.allow_rescue = false
 begin
   DatabaseCleaner.strategy = :transaction
 rescue NameError
-  raise "You need to add database_cleaner to your Gemfile (in the :test group) if you wish to use it."
+  raise 'You need to add database_cleaner to your Gemfile (in the :test group) if you wish to use it.'
 end
 
 # You may also want to configure DatabaseCleaner to use different strategies for certain features and scenarios.
 # See the DatabaseCleaner documentation for details. Example:
 #
-  Before('@no-txn,@selenium,@culerity,@celerity,@javascript') do
-    # { except: [:widgets] } may not do what you expect here
-    # as Cucumber::Rails::Database.javascript_strategy overrides
-    # this setting.
-    DatabaseCleaner.strategy = :truncation, { except: 'activities' }
-    load "#{Rails.root}/db/seeds.rb"
-  end
+Before('@no-txn,@selenium,@culerity,@celerity,@javascript') do
+  # { except: [:widgets] } may not do what you expect here
+  # as Cucumber::Rails::Database.javascript_strategy overrides
+  # this setting.
+  DatabaseCleaner.strategy = :truncation, { except: 'activities' }
+  load "#{Rails.root}/db/seeds.rb"
+end
 #
 #   Before('not @no-txn', 'not @selenium', 'not @culerity', 'not @celerity', 'not @javascript') do
 #     DatabaseCleaner.strategy = :transaction

@@ -14,8 +14,8 @@ When('I press {string}') do |btn_text|
   click_button btn_text
 end
 
-When("I select {string} from my documents") do |file_name|
-  attach_file("Schedule", Rails.root +
+When("I select {string} from my documents in the {string} field") do |file_name, label|
+  attach_file(label, Rails.root +
               "spec/fixtures/#{file_name}")
 end
 

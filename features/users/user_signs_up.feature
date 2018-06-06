@@ -31,6 +31,3 @@ Feature: User signs up
       | Bob  | ????          | barkbark   | barkbark              | Email is invalid                             | 0          |
       | Bob  | bark7@dog.com | few        | few                   | Password is too short                        | 0          |
       | Bob  | good@dog.com  | woofwoof   | woofwoof              | Email has already been taken                 | 0          |
-
-
-

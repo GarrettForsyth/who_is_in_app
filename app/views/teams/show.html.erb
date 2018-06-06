@@ -5,12 +5,13 @@
   <%= link_to 'Invite', new_team_invitation_path(@team.id) %>
 <% end %>
 <%= link_to 'roster', team_roster_path(@team.id) %>
+<%= link_to 'add schedule', new_team_schedule_path(@team.id) %>
 
-<% if @team.schedule? %>
-  <% if @team.schedule.file.extension.downcase == 'pdf' %>
-    <%= content_tag :iframe, '', src: @team.schedule_url %>
+<% if @team.schedule && @team.schedule.image? %>
+  <% if @team.schedule.image.file.extension.downcase == 'pdf' %>
+    <%= content_tag :iframe, '', src: @team.schedule.image_url %>
   <% else %>
-    <%= image_tag(@team.schedule_url) if @team.schedule? %>
+    <%= image_tag(@team.schedule.image_url) if @team.schedule.image? %>
   <% end %>
 <% end %>
 

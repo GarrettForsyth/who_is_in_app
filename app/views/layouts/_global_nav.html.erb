@@ -5,6 +5,7 @@
         <%= link_to 'sign out', destroy_user_session_path, method: :delete  %>
       <% else %>
         <%= link_to 'sign in', new_user_session_path  %>
+        <%= link_to 'sign in with google', user_google_oauth2_omniauth_authorize_path %>
       <% end %>
     </li>
   </ul>
