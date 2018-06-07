@@ -37,8 +37,8 @@ Feature: site access is restricted to unauthorized users
     Then I should be routed to "<destination>"
 
     Scenarios:
-      | path             | destination |
-      | team's page      | team's page |
+      | path             | destination  |
+      | team's page      | team's page  |
       | team's edit page | my dashboard |
 
 

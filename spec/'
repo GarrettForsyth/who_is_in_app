@@ -5,24 +5,22 @@ FactoryBot.define do
     location "MyString"
 
     after :create do |event|
-      event.attending << event.schedule.team.members
+      event.schedule.team.members.each do |member|
+      users << member
+      end
     end
   end
-
   factory :schedule do
     association :team, factory: :team
     image { Rack::Test::UploadedFile.new(Rails.root.join('spec','fixtures', 'schedule.jpg',), 'image/jpg') }
   end
-
   factory :finance do
     association :user, factory: :user
     association :team, factory: :team
   end
-
   factory :roster do
     association :team, factory: :team
   end
-
   factory :invitation do
     association :from, factory: :user
     association :to, factory: :user
@@ -33,7 +31,6 @@ FactoryBot.define do
     end
 
   end
-
   factory :comment do
     association :author, factory: :user
     association :message, factory: :message
@@ -58,7 +55,6 @@ FactoryBot.define do
     after(:build) do |team|
       team.members = [team.captain] if team.captain
       team.roster ||= FactoryBot.build(:roster, team: team)
-      team.schedule ||= FactoryBot.build(:schedule, team: team) 
     end
 
     after(:create) do |team|

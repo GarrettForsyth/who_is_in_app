@@ -8,11 +8,18 @@
   <span class="start">
     <%=event.start.in_time_zone('Eastern Time (US & Canada)').strftime("%b %d %I:%M") %>
   </span>
+
   <% if event.schedule.team.captain?(current_user) %>
     <%= button_to 'delete event',
       event_path(event),
       method: :delete,
       data: { confirm: 'Delete event?' }
     %>
+  <% end %>
+
+  <% if event.attending.include?(current_user) %>
+    <%= button_to 'mark as not attending', event_register_not_attending_path(event), method: :patch %>
+  <% else %>
+    <%= button_to 'mark as attending', event_register_attending_path(event), method: :patch %>
   <% end %>
 </div>

@@ -17,6 +17,9 @@ class Invitation < ApplicationRecord
 
   def accept
     team.add_member(to)
+    team.schedule.events.each do |event|
+      event.attending << to
+    end
   end
 
   private

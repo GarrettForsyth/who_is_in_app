@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action except: :destroy do
+  before_action only: [:create, :new] do
     schedule = Schedule.find(params[:schedule_id])
     authenticate_team_captain(schedule.team)
   end
@@ -15,6 +15,7 @@ class EventsController < ApplicationController
   def create
     @schedule = Schedule.find(params[:schedule_id])
     @event = Event.new(event_params.merge( { schedule: @schedule } ))
+    @event.attending = @schedule.team.members
 
     if @event.save
       flash[:notice] = 'Event successfully created.'
@@ -33,6 +34,24 @@ class EventsController < ApplicationController
       flash[:notice] = 'Event could not be deleted.'
     end
     redirect_back(fallback_location: dashboard_path)
+  end
+
+  def register_not_attending
+    event = Event.find(params[:event_id])
+    if event.attending.includes(current_user)
+      event.attending.delete(current_user)
+      flash[:notice] = 'Registered as not attending event.'
+      redirect_back(fallback_location: team_path(event.schedule.team))
+    end
+  end
+
+  def register_attending
+    event = Event.find(params[:event_id])
+    unless event.attending.include?(current_user)
+      event.attending << current_user
+      flash[:notice] = 'Registered as attending event.'
+      redirect_back(fallback_location: team_path(event.schedule.team))
+    end
   end
 
   private

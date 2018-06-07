@@ -3,18 +3,13 @@
 <% if current_user == @team.captain %>
   <%= link_to 'Edit Team Information', edit_team_path(@team) %>
   <%= link_to 'Invite', new_team_invitation_path(@team.id) %>
-
-  <% if @team.schedule %>
-    <%= link_to 'edit schedule', edit_schedule_path(@team.schedule) %>
-  <% else %>
-    <%= link_to 'add schedule', new_team_schedule_path(@team.id) %>
-  <% end %>
+  <%= link_to 'edit schedule', edit_schedule_path(@team.schedule) %>
 
 <% end %>
 
 <%= link_to 'roster', team_roster_path(@team.id) %>
 
-<% if @team.schedule && @team.schedule.image? %>
+<% if @team.schedule.image? %>
   <% if @team.schedule.image.file.extension.downcase == 'pdf' %>
     <%= content_tag :iframe, '', src: @team.schedule.image_url %>
   <% else %>

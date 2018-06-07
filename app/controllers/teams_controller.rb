@@ -18,6 +18,7 @@ class TeamsController < ApplicationController
 
   def create
     @team = Team.new(team_params)
+    @team.schedule = Schedule.new
 
     if @team.save
       @team.add_member(current_user)

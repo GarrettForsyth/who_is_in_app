@@ -1,5 +1,7 @@
 class User < ApplicationRecord
   has_and_belongs_to_many :teams
+  has_and_belongs_to_many :events
+
   has_many :captained_teams, class_name: 'Team', dependent: :destroy
   has_many :messages, foreign_key: 'author_id', dependent: :destroy
   has_many :invitations, foreign_key: 'to_id', dependent: :destroy

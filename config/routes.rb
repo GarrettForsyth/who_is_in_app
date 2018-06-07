@@ -18,11 +18,16 @@ Rails.application.routes.draw do
     resources :events
   end
 
+  resources :events do
+    patch 'register_not_attending_event',
+      to: 'events#register_not_attending',
+      as: :register_not_attending
+    patch 'register_attending_event',
+      to: 'events#register_attending',
+      as: :register_attending
+  end
+
   resources :calendars
-  # resources :calendars
-  # resources :schedules, shallow: true do
-  # resource :calendar
-  # end
 
   resources :teams do
     patch :remove_member
@@ -33,6 +38,7 @@ Rails.application.routes.draw do
   end
 
   resources :finance, only: [:update]
+
 
   root to: 'static_pages#home'
   get '/dashboard', to: 'static_pages#dashboard'

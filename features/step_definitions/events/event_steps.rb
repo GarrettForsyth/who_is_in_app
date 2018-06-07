@@ -2,7 +2,7 @@ Given('my team has {int} upcoming event(s)') do |num|
   @schedule ||= FactoryBot.create(:schedule, team: @team)
   now = DateTime.now
   num.times do |n|
-    FactoryBot.create(:event,
+    @events = FactoryBot.create(:event,
                       schedule: @schedule,
                       start: now + (n+1) * 1.week, 
                       location: 'Ol Ball Field')
@@ -13,12 +13,17 @@ Given("my team has {int} finished event(s)") do |num|
   @schedule ||= FactoryBot.create(:schedule, team: @team)
   now = DateTime.now
   num.times do |n|
-    FactoryBot.create(:event,
+    @events = FactoryBot.create(:event,
                       schedule: @schedule,
                       start: now - (n+1) * 1.week, 
                       location: 'Ol Ball Field')
   end
 end
+
+Given("I am marked as not attending") do
+  @events.attending.delete(@user)
+end
+
 
 Then('I should see the upcoming events') do
   @schedule.upcoming_events.each do |event|

@@ -27,10 +27,6 @@ Feature: a team captain edits a schedule
     | file name     | message                                                                         | file type |
     | schedule.blah | Image cannot be a \"blah\" file. Allowed types are: jpg, jpeg, gif, png, pdf | invalid   |
 
-  Scenario: the team currently has not schedule
-    Given I am signed in as team captain
-    When I access "my team's page"
-    Then I should not see "edit schedule"
   Scenario: invalid user uploads a file
     Given I am signed in as a team member
     When I access "my team's page"

@@ -26,6 +26,9 @@ class Team < ApplicationRecord
   def remove_member(user)
     members.delete(user)
     user.finance_for(self).destroy
+    schedule.events.each do |event|
+      event.attending.delete(user)
+    end
   end
 
   def member?(user)
