@@ -29,7 +29,9 @@ RSpec.describe MessagesController, type: :controller do
       end
 
       it 'rejects a post created by a non team member' do
+        sign_out @author
         @bad_user = FactoryBot.create(:user)
+        sign_in @bad_user
         @params[:message][:author_id] = @bad_user.id
         expect { post(:create, params: @params) }.to change(Message, :count).by(0)
       end

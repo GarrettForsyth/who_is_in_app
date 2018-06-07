@@ -39,7 +39,7 @@ Feature: site access is restricted to unauthorized users
     Scenarios:
       | path             | destination |
       | team's page      | team's page |
-      | team's edit page | team's page |
+      | team's edit page | my dashboard |
 
 
 

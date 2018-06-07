@@ -37,4 +37,19 @@ class ApplicationController < ActionController::Base
       redirect_to dashboard_path
     end
   end
+
+  protected
+
+  def authenticate_team_captain(team)
+    redirect_back(fallback_location: dashboard_path) unless team.captain?(current_user)
+  end
+
+  def authenticate_team_member(team)
+    redirect_back(fallback_location: dashboard_path) unless team.member?(current_user)
+  end
+
+  def authenticate_current_user(user)
+    redirect_back(fallback_location: dashboard_path) unless user == current_user
+  end
+
 end

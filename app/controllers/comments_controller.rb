@@ -1,6 +1,12 @@
 class CommentsController < ApplicationController
-  before_action :authenticate_current_user, only: :create
-  before_action :authenticate_captain, only: :destroy
+  before_action only: :create do
+    user = User.find_by_id(params[:comment][:author_id])
+    authenticate_current_user(user)
+  end
+  before_action only: :destroy do
+    comment = Comment.find(params[:id])
+    authenticate_team_captain(comment.message.team)
+  end
 
   def new
     @message = Message.find(params[:message_id])
@@ -31,20 +37,5 @@ class CommentsController < ApplicationController
   def comment_params
     params.require(:comment).permit(:author_id, :content)
       .merge({ message_id: params[:message_id] })
-  end
-
-  def authenticate_current_user
-    user = User.find(params[:comment][:author_id])
-    redirect_to dashboard_path unless user == current_user
-  rescue ActiveRecord::RecordNotFound
-    redirect_to dashboard_path
-  end
-
-  def authenticate_captain
-    comment = Comment.find(params[:id])
-    team = comment.message.team
-    redirect_to team_path unless team.captain?(current_user)
-  rescue ActiveRecord::RecordNotFound
-    redirect_to team_path
   end
 end

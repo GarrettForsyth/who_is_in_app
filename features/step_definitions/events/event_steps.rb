@@ -1,4 +1,5 @@
-Given('my team has {int} upcoming events') do |num|
+Given('my team has {int} upcoming event(s)') do |num|
+  @schedule ||= FactoryBot.create(:schedule, team: @team)
   now = DateTime.now
   num.times do |n|
     FactoryBot.create(:event,
@@ -8,7 +9,8 @@ Given('my team has {int} upcoming events') do |num|
   end
 end
 
-Given("my team has {int} finished event") do |num|
+Given("my team has {int} finished event(s)") do |num|
+  @schedule ||= FactoryBot.create(:schedule, team: @team)
   now = DateTime.now
   num.times do |n|
     FactoryBot.create(:event,

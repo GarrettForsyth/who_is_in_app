@@ -10,7 +10,7 @@ RSpec.describe TeamsController, type: :controller do
   describe 'POST #create' do
     context 'with valid attributes' do
       before :each do
-        @params = { team: FactoryBot.attributes_for(:team, user_id: @user) }
+        @params = { team: FactoryBot.attributes_for(:team, user_id: @user.id) }
       end
 
       it 'creates a team' do

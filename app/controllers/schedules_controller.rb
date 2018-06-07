@@ -1,4 +1,11 @@
 class SchedulesController < ApplicationController
+  before_action only: :create do
+    authenticate_team_captain(Team.find_by_id(params[:team_id]))
+  end
+  before_action only: :destroy do
+    authenticate_team_captain(Schedule.find_by_id(params[:id]).team)
+  end
+
   def new
     @team = Team.find(params[:team_id])
     @schedule = Schedule.new

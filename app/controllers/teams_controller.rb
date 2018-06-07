@@ -1,8 +1,16 @@
 class TeamsController < ApplicationController
-  before_action :authenticate_captain,  except: %i[new create show remove_member]
-  before_action :authenticate_member,   except: %i[new create remove_member]
-  before_action :authenticate_current_user, only: :create
-  before_action :authorize_remove_member, only: :remove_member
+  before_action except: %i[new create show remove_member] do
+    authenticate_team_captain(Team.find_by_id(params[:id]))
+  end
+  before_action except: %i[new create remove_member] do
+    authenticate_team_member(Team.find_by_id(params[:id]))
+  end
+  before_action only: :create do
+    authenticate_current_user(User.find_by_id(params[:team][:user_id]))
+  end
+  before_action only: :remove_member do
+    authenticate_team_captain(Team.find_by_id(params[:team_id]))
+  end
 
   def new
     @team = Team.new
@@ -64,33 +72,5 @@ class TeamsController < ApplicationController
     params.require(:team).permit(:name, :activity_id,
                                  :minimum_members_needed_for_an_event,
                                  :user_id, :schedule)
-  end
-
-  def authenticate_current_user
-    user = User.find(params[:team][:user_id])
-    redirect_to dashboard_path unless user == current_user
-  rescue ActiveRecord::RecordNotFound
-    redirect_to dashboard_path
-  end
-
-  def authenticate_captain
-    team = Team.find(params[:id])
-    redirect_to team_path(team) unless team.captain?(current_user)
-  rescue ActiveRecord::RecordNotFound
-    redirect_to team_path(team)
-  end
-
-  def authenticate_member
-    team = Team.find(params[:id])
-    redirect_to dashboard_path unless team.member?(current_user)
-  rescue ActiveRecord::RecordNotFound
-    redirect_to dashboard_path
-  end
-
-  def authorize_remove_member
-    team = Team.find(params[:team_id])
-    redirect_to team_path(team) unless team.captain?(current_user)
-  rescue ActiveRecord::RecordNotFound
-    redirect_to team_path(team)
   end
 end

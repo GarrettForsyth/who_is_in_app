@@ -1,5 +1,8 @@
 class InvitationsController < ApplicationController
-  before_action :authenticate_current_user, only: %i[create]
+  before_action only: :create do
+    user = User.find_by_id(params[:invitation][:from_id])
+    authenticate_current_user(user)
+  end
   before_action :authenticate_recipient, only: :update
   def new
     @team = Team.find(params[:team_id])
@@ -39,13 +42,6 @@ class InvitationsController < ApplicationController
   def invitation_params
     params.require(:invitation).permit(:invite_email, :from_id, :to_id)
           .merge(team_id: params[:team_id])
-  end
-
-  def authenticate_current_user
-    user = User.find(params[:invitation][:from_id])
-    redirect_to dashboard_path unless user == current_user
-  rescue ActiveRecord::RecordNotFound
-    redirect_to dashboard_path
   end
 
   def authenticate_recipient

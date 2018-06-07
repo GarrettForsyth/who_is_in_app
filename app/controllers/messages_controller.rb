@@ -1,6 +1,9 @@
 class MessagesController < ApplicationController
-  before_action :authorize_member, except: [:new, :destroy]
-  before_action :authorize_destroy, only: :destroy
+  before_action except: %i[new destroy] do
+    authenticate_team_member(Team.find_by_id(params[:team_id]))
+  end
+  before_action :authenticate_destroy, only: :destroy
+
   def new
     @team = Team.find(params[:team_id])
     @message = Message.new
@@ -19,7 +22,7 @@ class MessagesController < ApplicationController
 
   def destroy
     if Message.find(params[:id]).destroy
-      flash[:notice] = "Message deleted!"
+      flash[:notice] = 'Message deleted!'
       redirect_back(fallback_location: dashboard_path)
     end
   end
@@ -28,20 +31,12 @@ class MessagesController < ApplicationController
 
   def message_params
     params.require(:message).permit(:author_id, :content)
-      .merge({ team_id: params[:team_id] })
+          .merge(team_id: params[:team_id])
   end
 
-  def authorize_member
-    team = Team.find(params[:team_id])
-    user = User.find(params[:message][:author_id])
-    redirect_to team_path(team) unless team.members.include?(user)
-  end
-
-  def authorize_destroy
+  def authenticate_destroy
     message = Message.find(params[:id])
-    team = message.team
-    author = message.author
-    captain = team.captain
-    redirect_to team_path(team) unless (current_user == author || current_user == captain)
+    valid = (current_user == message.author || current_user == message.team.captain)
+    redirect_to team_path(message.team) unless valid
   end
 end
