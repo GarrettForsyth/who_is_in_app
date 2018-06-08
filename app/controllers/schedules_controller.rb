@@ -25,7 +25,7 @@ class SchedulesController < ApplicationController
       render :new
     end
   end
-
+  
   private
 
   def schedule_params

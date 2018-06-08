@@ -1,0 +1,13 @@
+<h1>Event for <%= @event.schedule.team.name %></h1>
+<% if @event.location %>
+  <h3>Location: <%= @event.location %></h3>
+<% end %>
+<h3> <%= @event.start %></h3>
+
+<h4> Attendance Status</h4>
+<% @event.schedule.team.members.each do |member| %>
+  <% attending = @event.attending.include?(member) ? "" : "not-" %>
+  <div id=<%="#{member.id}"%> class=<%="#{attending}attending"%>>
+    <%= render member %>
+  </div>
+<% end %>

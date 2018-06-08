@@ -12,6 +12,10 @@ class EventsController < ApplicationController
     @event = Event.new
   end
 
+  def show
+    @event = Event.find(params[:id])
+  end
+
   def create
     @schedule = Schedule.find(params[:schedule_id])
     @event = Event.new(event_params.merge( { schedule: @schedule } ))

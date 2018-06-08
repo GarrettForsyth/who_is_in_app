@@ -22,4 +22,6 @@
   <% else %>
     <%= button_to 'mark as attending', event_register_attending_path(event), method: :patch %>
   <% end %>
+
+  <%= link_to 'details', event_path(event) %>
 </div>
