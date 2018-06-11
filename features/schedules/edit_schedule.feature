@@ -13,15 +13,14 @@ Feature: a team captain edits a schedule
     And I select "<file name>" from my documents in the "Image" field
     And I press "submit"
     Then I should see "<message>"
-    And I should see the image "<file name>" if "<file type>"
 
     Scenarios: valid files
-    | file name     | message                       | file type |
-    | schedule.jpg  | Schedule successfully updated | image     |
-    | schedule.jpeg | Schedule successfully updated | image     |
-    | schedule.png  | Schedule successfully updated | image     |
-    | schedule.gif  | Schedule successfully updated | image     |
-    | schedule.pdf  | Schedule successfully updated | pdf       |
+    | file name     | message                       | 
+    | schedule.jpg  | Schedule successfully updated |
+    | schedule.jpeg | Schedule successfully updated |
+    | schedule.png  | Schedule successfully updated |
+    | schedule.gif  | Schedule successfully updated |
+    | schedule.pdf  | Schedule successfully updated |
 
     Scenarios: invalid files
     | file name     | message                                                                         | file type |

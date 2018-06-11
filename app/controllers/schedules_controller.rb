@@ -15,6 +15,10 @@ class SchedulesController < ApplicationController
     @schedule = Schedule.find(params[:id])
   end
 
+  def show
+    @schedule = Schedule.find(params[:id])
+  end
+
   def update
     @schedule = Schedule.find(params[:id])
     if @schedule.update_attributes(schedule_params)

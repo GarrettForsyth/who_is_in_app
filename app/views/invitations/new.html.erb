@@ -1,7 +1,7 @@
 <%= form_for [@team, @invitation] do |f| %>
   <%= render 'layouts/error_messages', object: f.object %>
   <%= f.hidden_field :from_id, value: current_user.id %>
-  <div class="field'">
+  <div class="field">
     <%= f.label :invite_email %>
     <%= f.text_field :invite_email, autofocus: true %>
   </div>

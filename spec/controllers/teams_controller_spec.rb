@@ -81,10 +81,16 @@ RSpec.describe TeamsController, type: :controller do
         @teammate = FactoryBot.create(:user)
         @team.add_member(@teammate)
         sign_out @user
-        sign_in @teammate
       end
-      it 'does not removes a member from the team' do
+      it 'does not removes a member from the team if not captain' do
+        sign_in @teammate
         expect { patch :remove_member, params: { id: @teammate.id, team_id: @team.id } }
+          .to change(@team.members, :count).by(0)
+      end
+
+      it 'does not let the captain remove himself' do
+        sign_in @user
+        expect { patch :remove_member, params: { id: @user.id, team_id: @team.id } }
           .to change(@team.members, :count).by(0)
       end
     end

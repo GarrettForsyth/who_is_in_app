@@ -1,0 +1,9 @@
+<% if @schedule.image? %>
+  <% if @schedule.image.file.extension.downcase == 'pdf' %>
+    <%= content_tag :iframe, '', src: @schedule.image_url %>
+  <% else %>
+    <%= image_tag(@schedule.image_url) if @schedule.image? %>
+  <% end %>
+<% else %>
+  <p>No image of schedule available.</p>
+<% end %>

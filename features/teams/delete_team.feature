@@ -10,7 +10,7 @@ Feature: a team captain deletes a team
     Given I am signed in as team captain
     And I am on "my dashboard"
     When I follow my team's link
-    And I follow 'Edit Team Information'
+    And I follow 'Edit Team Info'
     And I press and confirm 'delete team'
     Then I should see "Team deleted!"
     And I should not see my team

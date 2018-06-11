@@ -1,10 +1,14 @@
 <nav class="global-navbar">
   <ul class="global-nav">
-    <li class="global-nav-item">
+    <li class="global-nav-item logo left">Who is In</li>
+
+    <li class="global-nav-item right">
       <% if user_signed_in? %>
+        <%= link_to 'dashboard', dashboard_path %>
         <%= link_to 'sign out', destroy_user_session_path, method: :delete  %>
       <% else %>
         <%= link_to 'sign in', new_user_session_path  %>
+        <%= link_to 'sign up', new_user_registration_path  %>
         <%= link_to 'sign in with google', user_google_oauth2_omniauth_authorize_path %>
       <% end %>
     </li>

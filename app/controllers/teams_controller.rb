@@ -51,9 +51,14 @@ class TeamsController < ApplicationController
   def remove_member
     team = Team.find(params[:team_id])
     member = User.find(params[:id])
-    team.remove_member(member)
-    flash[:notice] = 'Member successfully removed!'
-    redirect_back(fallback_location: dashboard_path)
+    unless team.captain?(member)
+      team.remove_member(member)
+      flash[:notice] = 'Member successfully removed!'
+      redirect_back(fallback_location: dashboard_path)
+    else
+      flash[:notice] = 'You cannot remove yourself!'
+      redirect_back(fallback_location: team_roster_path(team.id))
+    end 
   end
 
   def destroy

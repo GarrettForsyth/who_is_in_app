@@ -1,10 +1,25 @@
-<%= link_to 'Create New Team', new_team_path %>
-<%= link_to 'edit account', edit_registration_path(current_user) %>
 
-<div class="pending-team-invite-request">
-  <%= render current_user.invitations %>
-</div>
+<ul class="dashboard-nav left">
+  <li class="nav-item">
+    <%= link_to 'Create New Team', new_team_path %>
+  </li>
+  <li class="nav-item">
+    <%= link_to 'edit account', edit_registration_path(current_user) %>
+  </li>
+</ul>
 
-<div class="my-teams">
+<ul class="users-teams left">
+  <li class="title">My Teams:</li>
   <%= render current_user.teams %>
-</div>
+
+</ul>
+
+
+<% if current_user.invitations.any? %>
+  <ul class="pending-team-invite-requests left">
+    <li class="title">Your Invitations:</li>
+    <table class="invitations">
+      <%= render current_user.invitations %>
+    </table>
+  </ul>
+<% end %>

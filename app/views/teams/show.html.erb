@@ -1,30 +1,60 @@
 <h1><%=@team.name %></h1>
 <h3><%= @team.activity.name %></h3>
+
+<ul class="white-on-blue left">
 <% if current_user == @team.captain %>
-  <%= link_to 'Edit Team Information', edit_team_path(@team) %>
-  <%= link_to 'Invite', new_team_invitation_path(@team.id) %>
-  <%= link_to 'edit schedule', edit_schedule_path(@team.schedule) %>
-
+  <ul class="captain-options">
+    <p>Captain Options:</p>
+    <li class="nav-item">
+      <%= link_to '-Edit Team Info', edit_team_path(@team) %>
+    </li>
+    <li class="nav-item">
+      <%= link_to '-Invite to Team', new_team_invitation_path(@team.id) %> 
+    </li>
+    <li class="nav-item">
+      <%= link_to '-edit schedule', edit_schedule_path(@team.schedule) %>
+    </li>
+  </ul>
 <% end %>
-
-<%= link_to 'roster', team_roster_path(@team.id) %>
-
-<% if @team.schedule.image? %>
-  <% if @team.schedule.image.file.extension.downcase == 'pdf' %>
-    <%= content_tag :iframe, '', src: @team.schedule.image_url %>
-  <% else %>
-    <%= image_tag(@team.schedule.image_url) if @team.schedule.image? %>
+    <li class="nav-item">
+      <%= link_to 'roster', team_roster_path(@team.id) %>
+    </li>
+    <li class="nav-item">
+      <%= link_to 'Post a message', new_team_message_path(@team.id)%>
+    </li>
+  <% if @team.schedule.image? %>
+    <li class="nav-item">
+      <%= link_to 'view schedule', schedule_path(@team.schedule)%>
+    </li>
   <% end %>
-<% end %>
+</ul>
 
-<% if @team.schedule %>
-  <%= render @team.schedule.upcoming_events %>
-<% end %>
+<ul class="blue-on-white left">
+  <li class="title">Upcoming Events:</li>
+  <table class="events-table">
+    <tr>
+      <th>Time</th>
+      <th>Location</th>
+      <th>Details</th>
+      <th>Attending</th>
+      <% if @team.captain?(current_user) %>
+        <th>Delete</th>
+      <% end %>
+      <% unless @team.schedule.upcoming_events.none?  %>
+        <%= render @team.schedule.upcoming_events %>
+      <% end %>
+    </tr>
+  </table>
+  <% if @team.schedule.upcoming_events.none?  %>
+    <li>No upcoming events.</li>
+  <% end %>
+</ul>
 
-<%= link_to 'Post a message', new_team_message_path(@team.id)%>
+<ul class="news-feed">
+  <li class="title">News Feed:</li>
+  <%= render @team.messages.reverse %>
+</ul>
 
-<div class="news-feed">
-  <%= render @team.messages %>
-</div>
-
-
+<ul class="blue-on-white left">
+  
+</ul>

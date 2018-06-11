@@ -1,0 +1,90 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require normalize-rails
+ *= require_tree .
+ *= require_self
+ */
+
+$MY-BLUE: #003fe0;
+$LIGHT: #fff;
+$MY-RED: #ff111d;
+$MY-ORANGE: #ff8c00;
+
+@import url('https://fonts.googleapis.com/css?family=Bevan|Pangolin|Poor+Story');
+
+h1,h2,h3,h4,h5{
+  font-family: 'Pangolin', cursive;
+  letter-spacing: 3px;
+  //text-transform: uppercase;
+}
+
+body {
+  background: $LIGHT;
+}
+
+.container {
+  margin-left: auto;
+  margin-right: auto;
+  width: 700px;
+}
+
+.center {
+  text-align: center;
+}
+
+table.form {
+  width: 100%;
+  td.label {
+    width: 40%;
+    text-align: right;
+  }
+  td.input {
+    width: 60%;
+    text-align: left;
+    input {
+      border-radius: 2px;
+    }
+  }
+}
+
+a {
+  text-decoration: none;
+}
+
+.right {
+  float: right;
+}
+
+.left {
+  float: left;
+}
+
+//// Global nav
+ul.global-nav {
+  list-style: none;
+  height: 1.5rem;
+  border-bottom: solid 2px black;
+
+  font-family: 'Pangolin', cursive;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: -3px;
+
+  a{
+    margin-left: 10px;
+  }
+}
+
+.hidden {
+  display: none;
+}

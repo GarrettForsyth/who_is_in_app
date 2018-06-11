@@ -1,11 +1,14 @@
-<%= form_for [ @message, @comment] do |f| %>
-  <%= render 'layouts/error_messages', object: f.object %>
-  <%= f.hidden_field :author_id, value: current_user.id %>
-  <div class="field">
-    <%= f.label :content %>
-    <%= f.text_area :content, autofocus: true  %>
-  </div>
-  <div class="actions">
-    <%= f.submit 'Add comment' %>
-  </div>
-<% end %>
+<div class="container center">
+  <h1>New Comment</h1>
+  <%= form_for [ @message, @comment] do |f| %>
+    <%= render 'layouts/error_messages', object: f.object %>
+    <%= f.hidden_field :author_id, value: current_user.id %>
+    <div class="field">
+      <%= f.label :content, class: 'hidden' %>
+      <%= f.text_area :content, size: "50x20", autofocus: true  %>
+    </div>
+    <div class="actions">
+      <%= f.submit 'Add comment' %>
+    </div>
+  <% end %>
+</div>

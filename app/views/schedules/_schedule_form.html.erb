@@ -1,10 +1,11 @@
 <%= form_for [@team, @schedule], html: { multipart: true } do |f| %>
   <%= render 'layouts/error_messages', object: f.object %>
-  <div class="field">
+  <span class="field">
+    <span>Add an image/pdf file: </span>
     <%= f.label :image %>
     <%= f.file_field :image %>
-  </div>
-  <div class="action">
+  </span>
+  <span class="action">
     <%= f.submit 'submit' %>
-  </div>
+  </span>
 <% end %>

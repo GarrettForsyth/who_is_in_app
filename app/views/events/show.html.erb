@@ -1,13 +1,16 @@
+<div class="container center">
 <h1>Event for <%= @event.schedule.team.name %></h1>
 <% if @event.location %>
   <h3>Location: <%= @event.location %></h3>
 <% end %>
-<h3> <%= @event.start %></h3>
+<h3><%= @event.start.strftime("%b %d %I:%M") %></h3>
 
-<h4> Attendance Status</h4>
-<% @event.schedule.team.members.each do |member| %>
-  <% attending = @event.attending.include?(member) ? "" : "not-" %>
-  <div id=<%="#{member.id}"%> class=<%="#{attending}attending"%>>
-    <%= render member %>
-  </div>
-<% end %>
+  <ul class="attendance attending">
+    <li class="title">Attending:</li>
+      <%= render @event.attending %>
+  </ul>
+  <ul class="attendance absent">
+    <li class="title">Absent:</li>
+    <%= render @event.absent %>
+  </ul>
+</div>

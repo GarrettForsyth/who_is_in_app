@@ -11,9 +11,10 @@ class InvitationsController < ApplicationController
 
   def create
     @invitation = Invitation.new(invitation_params)
+    @team = Team.find(params[:team_id])
     if @invitation.save
       flash[:notice] = 'Invitation sent!'
-      redirect_back(fallback_location: dashboard_path)
+      redirect_to @team
     else
       @team = Team.find(params[:team_id])
       render 'new'

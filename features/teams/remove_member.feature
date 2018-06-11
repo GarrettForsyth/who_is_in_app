@@ -16,3 +16,9 @@ Feature: a team captain removes a team member
     When I access "my team's page"
     And I follow "roster"
     Then I should not see "remove member" 
+
+  Scenario: captain kicks himself
+    Given I am signed in as team captain
+    When I access "my team's page"
+    And I follow "roster"
+    Then I should not see "remove member" beside my name

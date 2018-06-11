@@ -23,7 +23,7 @@ class EventsController < ApplicationController
 
     if @event.save
       flash[:notice] = 'Event successfully created.'
-      redirect_back(fallback_location: team_path(@schedule.team))
+      redirect_to team_path(@schedule.team)
     else
       flash.now[:notice] = 'Event could not be created.'
       render :new

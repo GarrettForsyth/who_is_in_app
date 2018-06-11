@@ -1,38 +1,54 @@
-<h1>Roster for <%= @roster.team.name %></h1>
-<% @roster.team.members.each do |member| %>
+<div class="container center">
+  <h1>Roster for <%= @roster.team.name %></h1>
+  <table class="roster">
+    <th>Name</th>
+    <th>Contact</th>
 
-  <% if @roster.team.captain?(current_user) %>
-    <% finance = member.finance_for(@roster.team) %>
-    <% paid_status = finance.paid ? ' paid' : ' not-paid' %>
-  <% end %>
-  <div id=<%="uid_#{member.id}"%> class="roster-entry<%="#{paid_status || ''}"%>">
-    <div class="name">
-      <%= member.name %>
-    </div>
-    <div class="email">
-      <%= member.email %>
-    </div>
-    <% if @roster.team.captain?(current_user) %>
-      <div class="paid-btn-container">
-        <%= button_to finance.paid ? 'mark as not paid' : 'mark as paid',
-          finance_path(finance),
-          method: :patch,
-          class: 'paid-btn'
-        %>
-      </div>
-
-    <div class="remove-member-btn-container">
-      <%= button_to 'remove member',
-        { 
-          controller: 'teams',
-          action: 'remove_member',
-          id: member.id
-        },
-        method: :patch,
-        class: 'remove-member-btn'
-      %>
-    </div>
+    <% if @roster.captain?(current_user) %>
+      <th>Paid Status</th>
     <% end %>
-  </div>
-<% end %>
 
+    <% @roster.team.members.each do |member| %>
+      <% if @roster.captain?(current_user) %>
+        <% finance = member.finance_for(@roster.team) %>
+        <% paid_status = finance.paid ? ' paid' : ' not-paid' %>
+      <% end %>
+
+
+      <tr id=<%="uid_#{member.id}"%> class="roster-entry<%="#{paid_status || ''}"%>">
+        <td>
+          <%= member.name %>
+        </td>
+        <td class="email">
+          <%= member.email %>
+        </td>
+
+
+        <% if @roster.captain?(current_user) %>
+
+          <td class="paid">
+            <%= button_to finance.paid ? 'mark as not paid' : 'mark as paid',
+              finance_path(finance),
+              method: :patch,
+              class: 'paid-btn'
+            %>
+          </td>
+
+          <% unless member.id == @roster.captain.id %>
+            <td class="remove-member">
+              <%= button_to 'remove member',
+                { 
+                  controller: 'teams',
+                  action: 'remove_member',
+                  id: member.id
+                },
+                method: :patch,
+                class: 'remove-member-btn'
+              %>
+            </td>
+          <% end %>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+</div>

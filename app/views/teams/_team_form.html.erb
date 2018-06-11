@@ -1,22 +1,28 @@
 <%= form_for @team do |f| %>
   <%= render 'layouts/error_messages', object: f.object %>
   <%= f.hidden_field :user_id, value: current_user.id %>
-  <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :activity %>
-    <% Activity.all.each do |activity| %>
-      <%= f.radio_button(:activity_id, activity.id) %>
-      <%= f.label "activity_id_#{activity.id}".to_sym, activity.name %><br/>
-    <% end %>
-  </div>
-  <div class="field">
-    <%= f.label :minimum_members_needed_for_an_event %>
-    <%= f.number_field :minimum_members_needed_for_an_event, min: 1 %>
-  </div>
-  <div class="actions">
-    <%= f.submit 'submit' %>
-  </div>
+
+  <table class="form">
+    <tr>
+      <td class="label"><%= f.label :name %></td>
+      <td class="input"><%= f.text_field :name %></td>
+    </tr>
+    <tr>
+      <td class="label"><%= f.label :activity %></td>
+      <td class="input">
+        <% Activity.all.each do |activity| %>
+          <%= f.radio_button(:activity_id, activity.id) %>
+          <%= f.label "activity_id_#{activity.id}".to_sym, activity.name %><br/>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td class="label"><%= f.label :minimum_members_needed_for_an_event %></td>
+      <td class="input"><%= f.number_field :minimum_members_needed_for_an_event, min: 1 %></td>
+    </tr>
+    <tr>
+      <td class="label"></td>
+      <td class="input"><%= f.submit 'submit' %></td>
+    </tr>
+  </table>
 <% end %>

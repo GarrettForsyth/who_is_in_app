@@ -1,14 +1,36 @@
-<%= form_for [ @schedule, @event] do |f| %>
-  <%= render 'layouts/error_messages', object: f.object %>
-  <div class="field">
-    <%= f.label :start %>
-    <%= f.datetime_field :start %>
-  </div>
-  <div class="field">
-    <%= f.label :location %>
-    <%= f.text_field :location %>
-  </div>
-  <div class="actions">
-    <%= f.submit 'submit' %>
-  </div>
-<% end %>
+<div class="container center">
+  <h1>New Event</h1>
+  
+  <%= form_for [ @schedule, @event] do |f| %>
+    <%= render 'layouts/error_messages', object: f.object %>
+    <table class="form">
+      <tr>
+        <td class="label">
+          <%= f.label :start %>
+        </td>
+        <td class="input">
+          <%= f.datetime_field :start %>
+        </td>
+      </tr>
+
+      <tr>
+        <td class="label">
+          <%= f.label :location %>
+        </td>
+        <td class="input">
+          <%= f.text_field :location %>
+        </td>
+      </tr>
+
+      <tr>
+        <td class="label">
+        </td>
+        <td class="input">
+          <%= f.submit 'submit' %>
+        </td>
+      </tr>
+      
+    </table>
+  <% end %>
+
+</div>

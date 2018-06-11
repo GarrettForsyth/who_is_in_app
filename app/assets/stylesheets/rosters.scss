@@ -1,3 +1,18 @@
 // Place all the styles related to the rosters controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+table.roster {
+  width: 100%;
+  border-collapse: collapse; // also borders on tr's
+
+  tr.roster-entry.paid {
+    border: solid green 1px;
+  }
+
+  tr.roster-entry.not-paid {
+    border: solid red 1px;
+  }
+
+  
+}

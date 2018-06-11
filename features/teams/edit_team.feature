@@ -8,7 +8,7 @@ Feature: a team captain edits team information
   Scenario Outline:
     Given I am signed in as team captain
     And I am on "my team's page"
-    When I follow "Edit Team Information"
+    When I follow "Edit Team Info"
     When I fill in "<label>" with "<attribute>"
     And I select "<activity>"
     And I press "submit" 

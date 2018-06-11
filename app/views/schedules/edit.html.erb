@@ -1,7 +1,6 @@
-<%= render partial: 'schedule_form' %>
-<%= link_to 'add event', new_schedule_event_path(@schedule.id)%>
-<%= button_to 'delete schedule',
-  schedule_path(@schedule),
-  method: :delete,
-  data: { confirm: 'Delete schedule?' },
-  class: 'delete-btn'%>
+<div class="container center">
+  <%= render partial: 'schedule_form' %>
+  <br />
+  <span>Adding events will create reminders for members: </span>
+  <%= link_to 'add event', new_schedule_event_path(@schedule.id)%>
+</div>

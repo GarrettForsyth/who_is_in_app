@@ -14,3 +14,4 @@ Feature: a team captain adds an event to their schedule
     And I fill in "Location" with "The ol Ball Field"
     And I press 'submit'
     Then I should see "Event successfully created"
+    And I should be routed to "my team's page"

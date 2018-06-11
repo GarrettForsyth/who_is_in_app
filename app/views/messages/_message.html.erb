@@ -1,27 +1,24 @@
 <div class="message">
   <div class="author">
-    <p>
-      <b> <%= message.author.name %></b> 
+    <p class="name"> <%= message.author.name %> </p>
+    <p class="time">
       <%= message.created_at.in_time_zone('Eastern Time (US & Canada)').strftime("%b %d %I:%M") %>
     </p>
-  </div>
-
-  <div class="action">
-    
-    <% if current_user == message.author || current_user == message.team.captain %>
-      <%= button_to 'delete message', message,
-        method: :delete,
-        data: { confirm: 'Delete message?' },
-        class: 'delete-btn' %>
-    <% end %>
-
-    <%= link_to 'comment', new_message_comment_path(message.id), class: 'comment-btn' %>
-
   </div>
 
   <div class="content">
     <p> <%= message.content %></p>
   </div>
+
+  <%= link_to '>>comment', new_message_comment_path(message.id), class: 'comment-btn' %>
+
+  <% if current_user == message.author || current_user == message.team.captain %>
+    <%= button_to 'delete message', message,
+      method: :delete,
+      data: { confirm: 'Delete message?' },
+      class: 'delete-btn' %>
+  <% end %>
+
 
   <div class="message-comments">
     <%= render message.comments %>

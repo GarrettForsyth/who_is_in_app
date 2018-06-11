@@ -1,7 +1,13 @@
-<%= render partial: 'team_form' %>
+<div class="container center">
+  <h1>Edit Team</h1>
+    
+  <%= render partial: 'team_form' %>
 
-<%= button_to 'delete team',
-  team_path(@team),
-  data: { confirm: 'Delete team?' },
-  class:  'delete-btn',
-  method: :delete %>
+  <br />
+  <span> Time to move on?!<span>
+  <%= button_to 'delete team',
+    team_path(@team),
+    data: { confirm: 'Delete team?' },
+    class:  'delete-btn',
+    method: :delete %>
+</div>

@@ -1,27 +1,31 @@
-<div id=<%= event.id %> class="event">
-  <span class="team-name">
-    <%= event.schedule.team.name %>
-  </span>
-  <% if event.location %>
-    <span class="location"><%= event.location %></span>
-  <% end %>
-  <span class="start">
-    <%=event.start.in_time_zone('Eastern Time (US & Canada)').strftime("%b %d %I:%M") %>
-  </span>
-
-  <% if event.schedule.team.captain?(current_user) %>
-    <%= button_to 'delete event',
-      event_path(event),
-      method: :delete,
-      data: { confirm: 'Delete event?' }
-    %>
-  <% end %>
-
+<tr id=<%= event.id %> class="event">
+  <td class="start">
+    <%=event.start.strftime("%b %d %I:%M") %>
+  </td>
+  <td class='location'>
+    <% if event.location %>
+      <%= event.location %>
+    <% else %>
+      N/A
+    <% end %>
+  </td>
+  <td class="details">
+    <%= link_to '<details>', event_path(event) %>
+  </td>
+  <td class="attending-btn">
   <% if event.attending.include?(current_user) %>
     <%= button_to 'mark as not attending', event_register_not_attending_path(event), method: :patch %>
   <% else %>
     <%= button_to 'mark as attending', event_register_attending_path(event), method: :patch %>
   <% end %>
-
-  <%= link_to 'details', event_path(event) %>
-</div>
+    </td>
+  <% if event.schedule.team.captain?(current_user) %>
+    <td class="delete-btn">
+    <%= button_to 'delete event',
+      event_path(event),
+      method: :delete,
+      data: { confirm: 'Delete event?' }
+    %>
+  </td>
+  <% end %>
+</tr>
